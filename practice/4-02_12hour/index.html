@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>テンプレート</title>
+  <link href="../../_common/images/favicon.ico" rel="shortcut icon">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+  <link href="../../_common/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>タイトル</h1>
+      <h2>サブタイトル</h2>
+    </div><!-- /.container -->
+  </header>
+  <main>
+    <div class="container">
+      <section>
+        <p>
+          最終アクセス日時：<span id="time"></span>
+        </p>
+      </section>
+    </div><!-- /.container -->
+  </main>
+  <footer>
+    <div class="container">
+      <p>JavaScript Samples</p>
+    </div><!-- /.container -->
+  </footer>
+  <script>
+    'use strict';
+
+    // 現在日時を取得
+    const now = new Date();
+    // 年を取得
+    const year = now.getFullYear();
+    // 月を取得
+    const month = now.getMonth(); // 実際の月 - 1が取得される
+    // 日を取得
+    const date = now.getDate();
+    // 時を取得
+    const hour = now.getHours();
+    // 分を取得
+    const min = now.getMinutes();
+    // 午前 or 午後の文字列
+    let ampt = '';
+    if (hour < 12) {
+      ampt = 'a.m.';
+    } else if (hour >= 12) {
+      ampt = 'p.m.';
+    }
+
+    // hour % 12 で0〜23表記を0〜11表記に変える
+    const output = `${year}/${month + 1}/${date} ${hour % 12}:${min} ${ampt}`;
+
+    document.getElementById('time').textContent = output;
+  </script>
+</body>
+
+</html>
