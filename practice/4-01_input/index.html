@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>テンプレート</title>
+  <link href="../../_common/images/favicon.ico" rel="shortcut icon">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+  <link href="../../_common/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>タイトル</h1>
+      <h2>サブタイトル</h2>
+    </div><!-- /.container -->
+  </header>
+  <main>
+    <div class="container">
+      <section>
+        <form action="#" id="form">
+          <input type="text" name="word">
+          <input type="submit" value="検索">
+        </form>
+        <p id="output"></p>
+      </section>
+    </div><!-- /.container -->
+  </main>
+  <footer>
+    <div class="container">
+      <p>JavaScript Samples</p>
+    </div><!-- /.container -->
+  </footer>
+  <script>
+    'use strict';
+
+    // onsubmitイベントは送信ボタンがクリックされた直後で、入力内容がサーバーに送信される直前に発火します。
+    // 「onsubmitイベントプロパティ」という。
+    // 「イベントプロパティ」に代入する関数は無名関数にする。returnもしない。
+    // 引数には「イベントオブジェクト」が渡される。
+    document.getElementById('form').onsubmit = function (event) {
+      // console.log('クリックされました');
+      console.log(event);
+      /*
+        🔽「送信ボタンがクリックされたらデータを送ると同時に、action属性で指定されたページに移動する」という
+        フォームの基本的動作をキャンセルする。（aタグやformタグなどのHTMLタグの基本動作をキャンセルする）
+        開発ツールを確認すると、データが送信されていないことがわかる。
+      */
+      event.preventDefault();
+      // 取得した<form>要素.読み取りたいform部品のname属性.value でinputタグを取得する。
+      const search = document.getElementById('form').word.value;
+      document.getElementById('output').textContent = `「${search}」を検索中...`;
+    };
+  </script>
+</body>
+
+</html>
