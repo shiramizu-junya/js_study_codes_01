@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>テンプレート</title>
+  <link href="../../_common/images/favicon.ico" rel="shortcut icon">
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+1p:400,500" rel="stylesheet">
+  <link href="../../_common/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <h1>タイトル</h1>
+      <h2>サブタイトル</h2>
+    </div><!-- /.container -->
+  </header>
+  <main>
+    <div class="container">
+      <section>
+        <p>今から<span id="timer"></span>以内に注文すると50%オフ！</p>
+      </section>
+    </div><!-- /.container -->
+  </main>
+  <footer>
+    <div class="container">
+      <p>JavaScript Samples</p>
+    </div><!-- /.container -->
+  </footer>
+  <script>
+    'use strict';
+
+    function countdown(due) {
+      // 現在日時を取得する
+      const now = new Date();
+
+      // getTime()メソッドは、1970年1月1日00:00:00 から基準日までの経過ミリ秒単位の数値で返す。
+      // 未来のミリ秒数 - 現在のミリ秒数 ＝ 残り時間のミリ秒数
+      const rest = due.getTime() - now.getTime();
+
+      // 残り秒数（1分は60秒なので、秒数を分数に直した余り = 60で割った余り が 秒数 になる）
+      const sec = Math.floor(rest / 1000) % 60;
+      // 残り分数（1時間は60分なので、分数を時数に直した余り = 60で割った余り が 分数 になる）
+      const min = Math.floor(rest / 1000 / 60) % 60;
+      // 残り時数（1日は24時間なので、時数を日数に直した余り = 24で割った余り が 日数 になる）
+      const hours = Math.floor(rest / 1000 / 60 / 60) % 24;
+      // 残り日数
+      const days = Math.floor(rest / 1000 / 60 / 60 / 24);
+
+      return [days, hours, min, sec];
+    }
+
+    // 未来の日時（現在年 現在月 現在日 23時59分59秒 で設定）
+    let goal = new Date(); // 今日の日時を取得
+    goal.setHours(23); // 時間を未来に設定
+    goal.setMinutes(59); // 分を未来に設定
+    goal.setSeconds(59); // 秒を未来に設定
+
+    // console.log(countdown(goal));
+
+    function recall() {
+      const counter = countdown(goal);
+      const time = `「${counter[1]}時間${counter[2]}分${counter[3]}秒」`;
+      document.getElementById('timer').textContent = time;
+      refresh();
+    }
+
+    function refresh() {
+      // 第２引数で指定した ミリ秒 経過後に、第１引数で指定した 関数 を１度だけ呼ぶ。
+      // 第１引数の関数には () をつけない。
+      setTimeout(recall, 1000);
+    }
+
+    recall();
+  </script>
+</body>
+
+</html>
